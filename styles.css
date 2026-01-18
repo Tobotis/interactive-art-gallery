@@ -164,19 +164,6 @@ body {
     pointer-events: none;
 }
 
-.hotspots-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.hotspots-layer .hotspot {
-    pointer-events: auto;
-}
-
 /* Hotspots - Elegant scope style */
 .hotspot {
     position: absolute;
@@ -184,11 +171,31 @@ body {
     height: 44px;
     border-radius: 50%;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
+    transform: translate(-50%, -50%) scale(var(--hotspot-scale, 1));
     z-index: 10;
+    will-change: transform;
+    animation: hotspot-pulse 2.5s ease-in-out infinite;
+    /* Dark outline for visibility on light backgrounds */
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes hotspot-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 0 1px rgba(0, 0, 0, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 0 0 rgba(255, 255, 255, 0);
+    }
+    50% {
+        box-shadow:
+            0 0 0 1px rgba(0, 0, 0, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 0 8px rgba(255, 255, 255, 0.15);
+    }
 }
 
 /* Crosshair lines */
@@ -196,12 +203,14 @@ body {
 .hotspot::after {
     content: '';
     position: absolute;
-    background: rgba(255, 255, 255, 0.85);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    transition: background 0.15s ease;
+    /* Dark shadow for visibility */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 .hotspot::before {
-    width: 1px;
+    width: 2px;
     height: 12px;
     top: 50%;
     left: 50%;
@@ -210,7 +219,7 @@ body {
 
 .hotspot::after {
     width: 12px;
-    height: 1px;
+    height: 2px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -218,7 +227,11 @@ body {
 
 .hotspot:hover {
     border-color: #fff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    animation: none;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .hotspot:hover::before,
@@ -226,13 +239,46 @@ body {
     background: #fff;
 }
 
+.hotspot:active {
+    transform: translate(-50%, -50%) scale(calc(var(--hotspot-scale, 1) * 0.9));
+}
+
 .hotspot.viewed {
-    border-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.4);
+    animation: none;
 }
 
 .hotspot.viewed::before,
 .hotspot.viewed::after {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Hotspot entry animation */
+.hotspot.entering {
+    opacity: 0;
+    animation: hotspot-enter 0.4s ease forwards;
+}
+
+@keyframes hotspot-enter {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(calc(var(--hotspot-scale, 1) * 0.5));
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(var(--hotspot-scale, 1));
+    }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .hotspot {
+        animation: none;
+    }
+    .hotspot.entering {
+        animation: none;
+        opacity: 1;
+    }
 }
 
 /* Viewer Controls */

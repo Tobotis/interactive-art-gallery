@@ -5,6 +5,34 @@
 
 const artworks = [
     {
+        id: 3,
+        title: "Mediterranean Landscape",
+        artist: "Unknown (Claimed: Monet)",
+        description: "Sold at auction as a Monet, this Impressionist landscape was later proved to be a skilled 20th-century forgery. Discover the clues that unmasked it.",
+        image: "images/example2.png",
+        thumbnail: "images/example2.png",
+        hotspots: [
+            {
+                x: 20,
+                y: 40,
+                title: "Architectural Impossibility",
+                description: "The building in this scene shows architectural features that didn't exist in the 1880s Mediterranean. The window style and roof construction are consistent with post-1950 renovation methods. The forger likely used a modern photograph as reference.",
+            },
+            {
+                x: 75,
+                y: 35,
+                title: "Tree Species Error",
+                description: "The trees depicted are Eucalyptus globulus, which wasn't introduced to southern France until 1920. Monet couldn't have painted this species in the 1880s because it simply wasn't there. The forger made a basic botanical error.",
+            },
+            {
+                x: 50,
+                y: 75,
+                title: "Provenance Gap",
+                description: "The painting's ownership history has a suspicious 40-year gap between 1920-1960. During this period, many forgeries were created. No photographs, exhibition records, or correspondence mention this work before 1962.",
+            }
+        ]
+    },
+    {
         id: 1,
         title: "Suspicious Starry Night",
         artist: "Unknown (Claimed: Van Gogh)",
@@ -45,8 +73,8 @@ const artworks = [
         title: "The Questionable Portrait",
         artist: "Unknown (Claimed: Rembrandt)",
         description: "This portrait was once valued at millions until experts discovered multiple anachronisms. Click on the highlighted areas to see the evidence.",
-        image: "images/example2.png",
-        thumbnail: "images/example2.png",
+        image: "images/example6.png",
+        thumbnail: "images/example6.png",
         hotspots: [
             {
                 x: 50,
@@ -75,34 +103,7 @@ const artworks = [
             }
         ]
     },
-    {
-        id: 3,
-        title: "Mediterranean Landscape",
-        artist: "Unknown (Claimed: Monet)",
-        description: "Sold at auction as a Monet, this Impressionist landscape was later proved to be a skilled 20th-century forgery. Discover the clues that unmasked it.",
-        image: "images/example1.png",
-        thumbnail: "images/example1.png",
-        hotspots: [
-            {
-                x: 20,
-                y: 40,
-                title: "Architectural Impossibility",
-                description: "The building in this scene shows architectural features that didn't exist in the 1880s Mediterranean. The window style and roof construction are consistent with post-1950 renovation methods. The forger likely used a modern photograph as reference.",
-            },
-            {
-                x: 75,
-                y: 35,
-                title: "Tree Species Error",
-                description: "The trees depicted are Eucalyptus globulus, which wasn't introduced to southern France until 1920. Monet couldn't have painted this species in the 1880s because it simply wasn't there. The forger made a basic botanical error.",
-            },
-            {
-                x: 50,
-                y: 75,
-                title: "Provenance Gap",
-                description: "The painting's ownership history has a suspicious 40-year gap between 1920-1960. During this period, many forgeries were created. No photographs, exhibition records, or correspondence mention this work before 1962.",
-            }
-        ]
-    },
+    
     {
         id: 4,
         title: "Abstract Composition #7",
