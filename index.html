@@ -3,69 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Detective - Spot the Fakes</title>
+    <title>Interactive Art Gallery</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="app">
-        <!-- Header -->
-        <header class="header">
-            <h1>Art Detective</h1>
-            <p class="subtitle">Examine artworks and discover hidden details</p>
-        </header>
-
-        <!-- Gallery Thumbnails -->
-        <nav class="gallery-nav">
-            <div class="gallery-thumbnails" id="galleryThumbnails">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <h1>Gallery</h1>
+            <nav class="gallery-list" id="galleryList">
                 <!-- Thumbnails will be inserted here -->
-            </div>
-        </nav>
+            </nav>
+        </aside>
 
         <!-- Main Viewer -->
         <main class="viewer-container">
-            <div class="artwork-info">
-                <h2 id="artworkTitle">Select an Artwork</h2>
-                <p id="artworkArtist"></p>
-                <p id="artworkDescription"></p>
+            <div class="viewer" id="viewer">
+                <div class="image-wrapper" id="imageWrapper">
+                    <img id="artworkImage" src="" alt="Artwork" draggable="false">
+                    <!-- Hotspots are inside the wrapper so they transform with the image -->
+                </div>
             </div>
 
-            <div class="viewer-wrapper">
-                <div class="viewer" id="viewer">
-                    <img id="artworkImage" src="" alt="Artwork" draggable="false">
-                    <div class="hotspots-container" id="hotspotsContainer">
-                        <!-- Hotspots will be inserted here -->
-                    </div>
-                </div>
-
-                <!-- Zoom Controls -->
-                <div class="zoom-controls">
-                    <button id="zoomIn" title="Zoom In">+</button>
-                    <button id="zoomReset" title="Reset Zoom">⟲</button>
-                    <button id="zoomOut" title="Zoom Out">−</button>
-                </div>
-
-                <!-- Instructions -->
-                <div class="instructions">
-                    <span>🖱️ Scroll to zoom</span>
-                    <span>✋ Drag to pan</span>
-                    <span>🔍 Click hotspots to reveal details</span>
-                </div>
+            <!-- Zoom Controls -->
+            <div class="zoom-controls">
+                <button id="zoomIn" title="Zoom In">+</button>
+                <button id="zoomReset" title="Reset">○</button>
+                <button id="zoomOut" title="Zoom Out">−</button>
             </div>
         </main>
 
-        <!-- Detail Panel (appears when hotspot is clicked) -->
+        <!-- Detail Panel -->
         <div class="detail-panel" id="detailPanel">
             <button class="close-btn" id="closeDetail">&times;</button>
-            <h3 id="detailTitle">Detail Title</h3>
-            <div class="detail-content">
-                <div class="detail-image-container">
-                    <img id="detailImage" src="" alt="Detail">
-                </div>
-                <p id="detailDescription"></p>
-            </div>
+            <h3 id="detailTitle"></h3>
+            <p id="detailDescription"></p>
         </div>
 
-        <!-- Overlay for detail panel -->
+        <!-- Overlay -->
         <div class="overlay" id="overlay"></div>
     </div>
 
