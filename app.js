@@ -9,6 +9,11 @@ class ArtViewer {
         this.detailTitle = document.getElementById('detailTitle');
         this.detailDescription = document.getElementById('detailDescription');
 
+        // Sidebar description elements
+        this.descTitle = document.getElementById('descTitle');
+        this.descArtist = document.getElementById('descArtist');
+        this.descText = document.getElementById('descText');
+
         // Transform state
         this.scale = 1;
         this.minScale = 0.5;
@@ -122,6 +127,11 @@ class ArtViewer {
         this.currentArtwork = artwork;
         this.viewedHotspots.clear();
 
+        // Update sidebar description
+        this.descTitle.textContent = artwork.title;
+        this.descArtist.textContent = artwork.artist || '';
+        this.descText.textContent = artwork.description || '';
+
         this.artworkImage.onload = () => {
             this.resetView();
             this.renderHotspots();
@@ -167,16 +177,14 @@ class ArtViewer {
         this.detailDescription.textContent = hotspot.description;
 
         this.detailPanel.classList.add('active');
-        this.overlay.classList.add('active');
     }
 
     zoomToHotspot(hotspot) {
-        const viewerRect = this.viewer.getBoundingClientRect();
         const imgWidth = this.artworkImage.offsetWidth;
         const imgHeight = this.artworkImage.offsetHeight;
 
-        // Target zoom level
-        const targetScale = 2.5;
+        // Use hotspot-specific zoom level, default to 4x
+        const targetScale = hotspot.zoom || 4;
 
         // Hotspot position relative to image center (in pixels at scale 1)
         const hotspotX = (hotspot.x / 100 - 0.5) * imgWidth;
@@ -202,7 +210,6 @@ class ArtViewer {
 
     closeDetail() {
         this.detailPanel.classList.remove('active');
-        this.overlay.classList.remove('active');
     }
 
     zoom(factor) {

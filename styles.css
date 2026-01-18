@@ -53,9 +53,36 @@ body {
 }
 
 .gallery-list {
-    flex: 1;
     overflow-y: auto;
     padding: 12px 0;
+    flex-shrink: 0;
+}
+
+/* Artwork Description */
+.artwork-description {
+    padding: 20px;
+    border-top: 1px solid #222;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.artwork-description h2 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.artwork-description .artist {
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.artwork-description .description {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-muted);
 }
 
 .gallery-item {
@@ -90,11 +117,9 @@ body {
 }
 
 .gallery-item-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.3;
 }
 
 .gallery-item-artist {
@@ -139,67 +164,63 @@ body {
     pointer-events: none;
 }
 
-/* Hotspots */
+/* Hotspots - Spy/scope style */
 .hotspot {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: rgba(231, 76, 60, 0.8);
-    border: 2px solid #fff;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.7);
     cursor: pointer;
     transform: translate(-50%, -50%);
-    transition: transform 0.2s, background 0.2s;
+    transition: all 0.3s ease;
     z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+/* Crosshair lines */
+.hotspot::before,
+.hotspot::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
 }
 
 .hotspot::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: rgba(231, 76, 60, 0.4);
-    animation: pulse 2s infinite;
+    width: 1px;
+    height: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .hotspot::after {
-    content: '?';
-    font-size: 14px;
-    font-weight: 600;
-    color: #fff;
-    z-index: 1;
+    width: 12px;
+    height: 1px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .hotspot:hover {
-    transform: translate(-50%, -50%) scale(1.2);
-    background: rgba(231, 76, 60, 1);
+    transform: translate(-50%, -50%) scale(1.15);
+    border-color: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.hotspot:hover::before,
+.hotspot:hover::after {
+    background: #fff;
 }
 
 .hotspot.viewed {
-    background: rgba(46, 204, 113, 0.8);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
-.hotspot.viewed::before {
-    background: rgba(46, 204, 113, 0.4);
-}
-
+.hotspot.viewed::before,
 .hotspot.viewed::after {
-    content: '✓';
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(2);
-        opacity: 0;
-    }
+    background: rgba(255, 255, 255, 0.4);
 }
 
 /* Zoom Controls */
