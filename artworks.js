@@ -45,8 +45,8 @@ const artworks = [
         title: "The Questionable Portrait",
         artist: "Unknown (Claimed: Rembrandt)",
         description: "This portrait was once valued at millions until experts discovered multiple anachronisms. Click on the highlighted areas to see the evidence.",
-        image: "images/example1.png",
-        thumbnail: "images/example1.png",
+        image: "images/example2.png",
+        thumbnail: "images/example2.png",
         hotspots: [
             {
                 x: 50,

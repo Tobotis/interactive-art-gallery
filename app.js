@@ -3,6 +3,7 @@ class ArtViewer {
         this.viewer = document.getElementById('viewer');
         this.imageWrapper = document.getElementById('imageWrapper');
         this.artworkImage = document.getElementById('artworkImage');
+        this.hotspotsLayer = document.getElementById('hotspotsLayer');
         this.galleryList = document.getElementById('galleryList');
         this.detailPanel = document.getElementById('detailPanel');
         this.overlay = document.getElementById('overlay');
@@ -156,7 +157,7 @@ class ArtViewer {
 
     renderHotspots() {
         // Remove existing hotspots
-        this.imageWrapper.querySelectorAll('.hotspot').forEach(el => el.remove());
+        this.hotspotsLayer.innerHTML = '';
 
         if (!this.currentArtwork?.hotspots) return;
 
@@ -164,17 +165,18 @@ class ArtViewer {
             const el = document.createElement('div');
             el.className = `hotspot ${this.viewedHotspots.has(index) ? 'viewed' : ''}`;
             el.dataset.index = index;
-            // Position as percentage of image dimensions
-            el.style.left = `${hotspot.x}%`;
-            el.style.top = `${hotspot.y}%`;
+            el.dataset.x = hotspot.x;
+            el.dataset.y = hotspot.y;
 
             el.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.showDetail(index);
             });
 
-            this.imageWrapper.appendChild(el);
+            this.hotspotsLayer.appendChild(el);
         });
+
+        this.updateHotspotPositions();
     }
 
     showDetail(index) {
@@ -182,7 +184,7 @@ class ArtViewer {
         if (!hotspot) return;
 
         this.viewedHotspots.add(index);
-        const el = this.imageWrapper.querySelector(`[data-index="${index}"]`);
+        const el = this.hotspotsLayer.querySelector(`[data-index="${index}"]`);
         if (el) el.classList.add('viewed');
 
         // Zoom to hotspot
@@ -217,9 +219,18 @@ class ArtViewer {
         this.imageWrapper.style.transition = 'transform 0.4s ease-out';
         this.imageWrapper.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale})`;
 
-        // Remove transition after animation completes
+        // Animate hotspots too
+        this.hotspotsLayer.querySelectorAll('.hotspot').forEach(h => {
+            h.style.transition = 'left 0.4s ease-out, top 0.4s ease-out';
+        });
+        this.updateHotspotPositions();
+
+        // Remove transitions after animation completes
         setTimeout(() => {
             this.imageWrapper.style.transition = '';
+            this.hotspotsLayer.querySelectorAll('.hotspot').forEach(h => {
+                h.style.transition = '';
+            });
         }, 400);
     }
 
@@ -285,6 +296,33 @@ class ArtViewer {
 
     applyTransform() {
         this.imageWrapper.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale})`;
+        this.updateHotspotPositions();
+    }
+
+    updateHotspotPositions() {
+        const viewerRect = this.viewer.getBoundingClientRect();
+        const imgWidth = this.artworkImage.offsetWidth;
+        const imgHeight = this.artworkImage.offsetHeight;
+
+        // Calculate where the image is rendered
+        const viewerCenterX = viewerRect.width / 2;
+        const viewerCenterY = viewerRect.height / 2;
+
+        this.hotspotsLayer.querySelectorAll('.hotspot').forEach(hotspot => {
+            const x = parseFloat(hotspot.dataset.x);
+            const y = parseFloat(hotspot.dataset.y);
+
+            // Position relative to image center at scale 1
+            const relX = (x / 100 - 0.5) * imgWidth;
+            const relY = (y / 100 - 0.5) * imgHeight;
+
+            // Apply current transform
+            const screenX = viewerCenterX + this.translateX + relX * this.scale;
+            const screenY = viewerCenterY + this.translateY + relY * this.scale;
+
+            hotspot.style.left = `${screenX}px`;
+            hotspot.style.top = `${screenY}px`;
+        });
     }
 }
 

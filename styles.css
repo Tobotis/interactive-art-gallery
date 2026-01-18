@@ -164,6 +164,19 @@ body {
     pointer-events: none;
 }
 
+.hotspots-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.hotspots-layer .hotspot {
+    pointer-events: auto;
+}
+
 /* Hotspots - Spy/scope style */
 .hotspot {
     position: absolute;
@@ -204,7 +217,6 @@ body {
 }
 
 .hotspot:hover {
-    transform: translate(-50%, -50%) scale(1.15);
     border-color: #fff;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
