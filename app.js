@@ -160,11 +160,44 @@ class ArtViewer {
         const el = this.imageWrapper.querySelector(`[data-index="${index}"]`);
         if (el) el.classList.add('viewed');
 
+        // Zoom to hotspot
+        this.zoomToHotspot(hotspot);
+
         this.detailTitle.textContent = hotspot.title;
         this.detailDescription.textContent = hotspot.description;
 
         this.detailPanel.classList.add('active');
         this.overlay.classList.add('active');
+    }
+
+    zoomToHotspot(hotspot) {
+        const viewerRect = this.viewer.getBoundingClientRect();
+        const imgWidth = this.artworkImage.offsetWidth;
+        const imgHeight = this.artworkImage.offsetHeight;
+
+        // Target zoom level
+        const targetScale = 2.5;
+
+        // Hotspot position relative to image center (in pixels at scale 1)
+        const hotspotX = (hotspot.x / 100 - 0.5) * imgWidth;
+        const hotspotY = (hotspot.y / 100 - 0.5) * imgHeight;
+
+        // Calculate translation to center the hotspot in the viewer
+        this.scale = targetScale;
+        this.translateX = -hotspotX * targetScale;
+        this.translateY = -hotspotY * targetScale;
+
+        this.applyTransformAnimated();
+    }
+
+    applyTransformAnimated() {
+        this.imageWrapper.style.transition = 'transform 0.4s ease-out';
+        this.imageWrapper.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale})`;
+
+        // Remove transition after animation completes
+        setTimeout(() => {
+            this.imageWrapper.style.transition = '';
+        }, 400);
     }
 
     closeDetail() {
