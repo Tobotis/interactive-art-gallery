@@ -14,6 +14,12 @@ class ArtViewer {
         this.descArtist = document.getElementById('descArtist');
         this.descText = document.getElementById('descText');
 
+        // Mobile info panel elements
+        this.mobileInfoPanel = document.getElementById('mobileInfoPanel');
+        this.mobileInfoTitle = document.getElementById('mobileInfoTitle');
+        this.mobileInfoArtist = document.getElementById('mobileInfoArtist');
+        this.mobileInfoDesc = document.getElementById('mobileInfoDesc');
+
         // Transform state
         this.scale = 1;
         this.minScale = 0.5;
@@ -108,6 +114,10 @@ class ArtViewer {
         document.getElementById('closeDetail').addEventListener('click', () => this.closeDetail());
         this.overlay.addEventListener('click', () => this.closeDetail());
 
+        // Mobile info panel
+        document.getElementById('infoBtn').addEventListener('click', () => this.toggleMobileInfo());
+        document.getElementById('closeMobileInfo').addEventListener('click', () => this.closeMobileInfo());
+
         // Keyboard
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') this.closeDetail();
@@ -131,6 +141,11 @@ class ArtViewer {
         this.descTitle.textContent = artwork.title;
         this.descArtist.textContent = artwork.artist || '';
         this.descText.textContent = artwork.description || '';
+
+        // Update mobile info panel
+        this.mobileInfoTitle.textContent = artwork.title;
+        this.mobileInfoArtist.textContent = artwork.artist || '';
+        this.mobileInfoDesc.textContent = artwork.description || '';
 
         this.artworkImage.onload = () => {
             this.resetView();
@@ -210,6 +225,14 @@ class ArtViewer {
 
     closeDetail() {
         this.detailPanel.classList.remove('active');
+    }
+
+    toggleMobileInfo() {
+        this.mobileInfoPanel.classList.toggle('active');
+    }
+
+    closeMobileInfo() {
+        this.mobileInfoPanel.classList.remove('active');
     }
 
     zoom(factor) {

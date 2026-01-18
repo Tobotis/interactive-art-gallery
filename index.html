@@ -30,11 +30,22 @@
                 </div>
             </div>
 
-            <!-- Zoom Controls -->
-            <div class="zoom-controls">
-                <button id="zoomIn" title="Zoom In">+</button>
-                <button id="zoomReset" title="Reset">○</button>
-                <button id="zoomOut" title="Zoom Out">−</button>
+            <!-- Controls -->
+            <div class="viewer-controls">
+                <button class="info-btn" id="infoBtn" title="Artwork Info">i</button>
+                <div class="zoom-controls">
+                    <button id="zoomIn" title="Zoom In">+</button>
+                    <button id="zoomReset" title="Reset">○</button>
+                    <button id="zoomOut" title="Zoom Out">−</button>
+                </div>
+            </div>
+
+            <!-- Mobile Info Panel -->
+            <div class="mobile-info-panel" id="mobileInfoPanel">
+                <button class="close-btn" id="closeMobileInfo">&times;</button>
+                <h3 id="mobileInfoTitle"></h3>
+                <p class="artist" id="mobileInfoArtist"></p>
+                <p class="description" id="mobileInfoDesc"></p>
             </div>
         </main>
 

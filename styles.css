@@ -223,17 +223,24 @@ body {
     background: rgba(255, 255, 255, 0.4);
 }
 
-/* Zoom Controls */
-.zoom-controls {
+/* Viewer Controls */
+.viewer-controls {
     position: absolute;
     right: 20px;
     bottom: 20px;
     display: flex;
-    gap: 8px;
+    flex-direction: column;
+    gap: 12px;
     z-index: 100;
 }
 
-.zoom-controls button {
+.zoom-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.zoom-controls button,
+.info-btn {
     width: 40px;
     height: 40px;
     border: none;
@@ -246,8 +253,59 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.zoom-controls button:hover {
+.zoom-controls button:hover,
+.info-btn:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+.info-btn {
+    font-style: italic;
+    font-family: Georgia, serif;
+    display: none;
+}
+
+/* Mobile Info Panel */
+.mobile-info-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(17, 17, 17, 0.98);
+    padding: 20px;
+    padding-top: 50px;
+    z-index: 200;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.mobile-info-panel.active {
+    transform: translateY(0);
+}
+
+.mobile-info-panel .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.mobile-info-panel h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.mobile-info-panel .artist {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.mobile-info-panel .description {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-muted);
 }
 
 /* Detail Panel */
@@ -330,35 +388,169 @@ body {
     visibility: visible;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive - Tablet */
+@media (max-width: 900px) {
     .sidebar {
-        width: 60px;
-        min-width: 60px;
+        min-width: 160px;
+        max-width: 200px;
+    }
+
+    .artwork-description {
+        padding: 16px;
+    }
+
+    .artwork-description .description {
+        font-size: 0.75rem;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        height: auto;
+        max-height: 35vh;
+        border-right: none;
+        border-bottom: 1px solid #222;
+        order: 2;
     }
 
     .sidebar h1 {
         display: none;
     }
 
+    .gallery-list {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 8px;
+        gap: 8px;
+    }
+
     .gallery-item {
-        padding: 12px;
-        justify-content: center;
+        flex-shrink: 0;
+        padding: 8px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        border-radius: 8px;
+    }
+
+    .gallery-item.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--accent);
+    }
+
+    .gallery-item img {
+        width: 56px;
+        height: 56px;
     }
 
     .gallery-item-info {
         display: none;
     }
 
+    .artwork-description {
+        display: none;
+    }
+
+    .viewer-container {
+        order: 1;
+        flex: 1;
+    }
+
+    .image-wrapper img {
+        max-width: 100%;
+        max-height: 65vh;
+    }
+
+    /* Larger hotspots for touch */
+    .hotspot {
+        width: 56px;
+        height: 56px;
+        border-width: 2px;
+    }
+
+    .hotspot::before {
+        height: 16px;
+    }
+
+    .hotspot::after {
+        width: 16px;
+    }
+
+    /* Detail panel as bottom sheet */
+    .detail-panel {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        max-width: none;
+        max-height: 50vh;
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+    .detail-panel h3 {
+        font-size: 1rem;
+    }
+
+    .detail-panel p {
+        font-size: 0.85rem;
+    }
+
+    .viewer-controls {
+        right: 12px;
+        bottom: auto;
+        top: 12px;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .zoom-controls {
+        flex-direction: column;
+    }
+
+    .zoom-controls button,
+    .info-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .info-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+    .sidebar {
+        max-height: 30vh;
+    }
+
     .gallery-item img {
-        width: 36px;
-        height: 36px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .hotspot {
+        width: 48px;
+        height: 48px;
     }
 
     .detail-panel {
-        left: 80px;
-        right: 20px;
-        width: auto;
+        padding: 16px;
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
     }
 }
 
