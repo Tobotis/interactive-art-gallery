@@ -9,8 +9,8 @@ const artworks = [
         title: "Suspicious Starry Night",
         artist: "Unknown (Claimed: Van Gogh)",
         description: "This alleged Van Gogh has several telltale signs of forgery. Examine the hotspots to learn why experts believe this is a fake.",
-        image: "images/example1.png",
-        thumbnail: "images/example1.png",
+        image: "images/example3.png",
+        thumbnail: "images/example3.png",
         hotspots: [
             {
                 x: 25,
@@ -108,8 +108,8 @@ const artworks = [
         title: "Abstract Composition #7",
         artist: "Unknown (Claimed: Kandinsky)",
         description: "This abstract work claimed to be an early Kandinsky was exposed through scientific analysis. The evidence is hidden in the details.",
-        image: "images/example1.png",
-        thumbnail: "images/example1.png",
+        image: "images/example4.png",
+        thumbnail: "images/example4.png",
         hotspots: [
             {
                 x: 30,
@@ -142,8 +142,8 @@ const artworks = [
         title: "Still Life with Flowers",
         artist: "Unknown (Claimed: Dutch Master)",
         description: "This elaborate floral still life has fooled collectors for decades. Recent technology revealed its true nature as a sophisticated modern fake.",
-        image: "images/example1.png",
-        thumbnail: "images/example1.png",
+        image: "images/example5.png",
+        thumbnail: "images/example5.png",
         hotspots: [
             {
                 x: 40,

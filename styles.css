@@ -177,14 +177,14 @@ body {
     pointer-events: auto;
 }
 
-/* Hotspots - Spy/scope style */
+/* Hotspots - Elegant scope style */
 .hotspot {
     position: absolute;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.85);
     cursor: pointer;
     transform: translate(-50%, -50%);
     transition: all 0.3s ease;
@@ -196,7 +196,7 @@ body {
 .hotspot::after {
     content: '';
     position: absolute;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.85);
     transition: all 0.3s ease;
 }
 
@@ -218,7 +218,7 @@ body {
 
 .hotspot:hover {
     border-color: #fff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .hotspot:hover::before,
@@ -227,12 +227,12 @@ body {
 }
 
 .hotspot.viewed {
-    border-color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .hotspot.viewed::before,
 .hotspot.viewed::after {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 /* Viewer Controls */
@@ -363,22 +363,24 @@ body {
     position: absolute;
     top: 16px;
     right: 16px;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border: none;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    font-size: 1.2rem;
+    border-radius: 0;
+    background: transparent;
+    color: #666;
+    font-size: 1.3rem;
+    font-weight: 300;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: color 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
 }
 
 .close-btn:hover {
-    background: var(--accent);
+    color: #fff;
 }
 
 /* Overlay */
