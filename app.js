@@ -73,6 +73,7 @@ class ArtViewer {
         document.getElementById('zoomIn').addEventListener('click', () => this.zoom(1.4));
         document.getElementById('zoomOut').addEventListener('click', () => this.zoom(0.7));
         document.getElementById('zoomReset').addEventListener('click', () => this.resetView());
+        document.getElementById('fullscreenBtn').addEventListener('click', () => this.toggleFullscreen());
 
         // Mouse wheel zoom
         this.viewer.addEventListener('wheel', (e) => {
@@ -125,7 +126,11 @@ class ArtViewer {
             if (e.key === '+' || e.key === '=') this.zoom(1.3);
             if (e.key === '-') this.zoom(0.7);
             if (e.key === '0') this.resetView();
+            if (e.key === 'f' || e.key === 'F') this.toggleFullscreen();
         });
+
+        // Update fullscreen button icon on change
+        document.addEventListener('fullscreenchange', () => this.updateFullscreenButton());
     }
 
     getTouchDistance(touches) {
@@ -244,6 +249,27 @@ class ArtViewer {
 
     closeMobileInfo() {
         this.mobileInfoPanel.classList.remove('active');
+    }
+
+    toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log('Fullscreen error:', err);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    updateFullscreenButton() {
+        const btn = document.getElementById('fullscreenBtn');
+        if (document.fullscreenElement) {
+            btn.textContent = '⛶';
+            btn.title = 'Exit Fullscreen';
+        } else {
+            btn.textContent = '⛶';
+            btn.title = 'Fullscreen';
+        }
     }
 
     zoom(factor) {

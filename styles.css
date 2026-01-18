@@ -259,10 +259,15 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     cursor: pointer;
     transition: background 0.2s;
     backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
 }
 
 .zoom-controls button:hover,
